@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>ajax</title>
+</head>
+<body>
+    <h2>ajaxについて</h2>
+
+
+    <button>変更</button>
+    <p>変更前</p>
+
+
+    <div class="result">ここにajaxの結果を書き換えます</div>
+<input type="button" class="sample_btn" value="ajax通信で取得する">
+
+<script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+<script>
+$(function(){
+    $("button").click(function(){
+    $("p").load("sample.html");
+    })
+    });
+    
+
+    $(function(){
+      //.sampleをクリックしてajax通信を行う
+      $('.sample_btn').click(function(){
+          $.ajax({
+              type: 'POST',
+              url: 'C:/xampp/htdocs/ajax_practice/text.html',
+              dataType: 'html',
+              // dataType:"json"
+          }).done(function(data){
+              /* 通信成功時done */
+              $('.result').html(data); //取得したHTMLを.resultに反映
+              
+          }).fail(function(data){
+              /* 通信失敗時fail */
+              console.log(data);
+              alert('通信失敗！');
+          });
+      });
+  });
+</script>
+</body>
+</html>
